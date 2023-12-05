@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kód Úprava</title>
+  <style>
+    /* Styling pro input wrapper */
+    #inputWrapper {
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="inputWrapper">
+    <input type="text" id="codeInput" placeholder="Vložte kód zde">
+    <button onclick="upravitKod()">Upravit kód</button>
+    <p id="output"></p>
+  </div>
+
+  <script>
+    function nahraditTag(tag) {
+      const nahrazeniText = "dc_sdk_apis=[APIFRAMEWORKS];dc_omid_p=[OMIDPARTNER];";
+      const nahrazenoText = "2,7,8;dc_omid_p=Google1/h.3.586.0";
+
+      if (tag.includes(nahrazeniText)) {
+        const novyTag = tag.replace(nahrazeniText, nahrazenoText);
+        return novyTag;
+      } else {
+        throw new Error("Špatný tag - daný kus k nahrazení nenalezen.");
+      }
+    }
+
+    function upravitKod() {
+      const vstupniElement = document.getElementById('codeInput');
+      const vstupniKod = vstupniElement.value;
+
+      try {
+        const upravenyKod = nahraditTag(vstupniKod);
+        const vystupniElement = document.getElementById('output');
+        vystupniElement.innerText = upravenyKod;
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+  </script>
+</body>
+</html>
